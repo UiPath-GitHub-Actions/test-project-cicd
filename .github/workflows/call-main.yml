@@ -1,0 +1,31 @@
+name: Call Main CiCd
+run-name: ${{ github.actor }} has launched the ${{ github.head_ref || github.ref_name }} pipeline for commit ${{github.sha}}
+on:
+  push:
+    branches: [ dev, uat, prd ] # DO NOT CHANGE BRANCH NAME
+jobs:
+  download-latest-code:
+    runs-on: uipath-cli
+    env:
+      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+    steps:
+      - name: Checkout the latest version of the current repo
+        uses: actions/checkout@v3
+      - name: List files in the folder
+        shell: pwsh
+        run: dir
+      - name: Display SHA of commit
+        shell: pwsh
+        run: Write-Host ( "Change in branch ${{ env.BRANCH_NAME }}" + " ${{github.sha}}".Substring(0, 8) )
+  call-workflow-passing-data:
+    needs: download-latest-code
+    uses: Test-Organisation-FCC/cicd-primitives/.github/workflows/main-publish.yml@main
+    with:
+      environment: ${{ github.head_ref || github.ref_name }}
+      folder_dev: DEV # Modify this <<<---
+      folder_uat: UAT # Modify this <<<---
+      folder_prd: PRD # Modify this <<<---
+    secrets:
+      CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+
