@@ -19,7 +19,7 @@ jobs:
         run: Write-Host ( "Change in branch ${{ env.BRANCH_NAME }}" + " ${{github.sha}}".Substring(0, 8) )
   call-workflow-passing-data:
     needs: download-latest-code
-    uses: Test-Organisation-FCC/cicd-primitives/.github/workflows/main-publish.yml@main
+    uses: UiPath-GitHub-Actions/cicd-primitives/.github/workflows/main-publish.yml@main
     with:
       environment: ${{ github.head_ref || github.ref_name }}
       folder_dev: DEV # Modify this <<<---
