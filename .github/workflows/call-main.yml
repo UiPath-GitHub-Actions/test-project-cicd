@@ -23,7 +23,7 @@ jobs:
     with:
       environment: ${{ github.head_ref || github.ref_name }}
       folder_dev: DEV # Modify this <<<---
-      folder_uat: UAT # Modify this <<<---
+      #folder_uat: UAT # Modify this <<<---
       folder_prd: PRD # Modify this <<<---
     secrets:
       CLIENT_ID: ${{ secrets.CLIENT_ID }}
