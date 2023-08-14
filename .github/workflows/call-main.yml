@@ -22,7 +22,7 @@ jobs:
     uses: UiPath-GitHub-Actions/cicd-primitives/.github/workflows/main-publish.yml@main
     with:
       environment: ${{ github.head_ref || github.ref_name }}
-      folder_dev: DEV # Modify this <<<---
+      #folder_dev: DEV # Modify this <<<---
       #folder_uat: UAT # Modify this <<<---
       folder_prd: PRD # Modify this <<<---
     secrets:
